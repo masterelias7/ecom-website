@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SUITIFY — Premium Suits & Tailoring</title>
+  <meta name="description" content="One-page website to sell suits online. Modern, responsive, and ready to customize." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --card:#121319;
+      --muted:#8e95a5;
+      --text:#ffffff;
+      --accent:#ff6a00; /* Orange Buy button */
+      --accent-600:#e45f00;
+      --accent-700:#cc5400;
+      --ring: rgba(255,106,0,0.35);
+      --success:#16a34a;
+      --warning:#f59e0b;
+      --danger:#ef4444;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 600px at 10% -10%, #1c1f2b 0%, transparent 70%),radial-gradient(900px 500px at 110% 10%, #1a1c27 0%, transparent 70%), var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;z-index:40;background:rgba(11,12,16,.6);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+    .brand .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1f2937,#0b0c10);border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand .logo span{font-weight:900}
+    .nav a{opacity:.9}
+    .chip{padding:8px 14px;border:1px solid rgba(255,255,255,.08);border-radius:999px;font-size:14px;color:var(--muted)}
+    .actions{display:flex;align-items:center;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--accent);color:#111}
+    .btn-primary:hover{background:var(--accent-600)}
+    .btn-primary:active{background:var(--accent-700)}
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.12)}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.3)}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:32px 0}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .kicker{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-weight:600;letter-spacing:.2px}
+    .kicker .dot{width:8px;height:8px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 6px var(--ring)}
+    h1{font-size:clamp(28px,4vw,48px);margin:12px 0 8px;font-weight:800}
+    .lead{color:#d5d9e6;line-height:1.6;font-size:clamp(14px,2vw,18px)}
+    .hero-cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .hero-media{position:relative}
+    .hero-media .badge{position:absolute;bottom:14px;left:14px;background:rgba(11,12,16,.8);border:1px solid rgba(255,255,255,.1);padding:12px 14px;border-radius:14px;backdrop-filter:blur(8px);font-size:14px}
+    .hero-img{border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+
+    /* Products */
+    .section{padding:18px 0 48px}
+    .section h2{font-size:clamp(22px,3vw,32px);margin:6px 0 10px}
+    .muted{color:var(--muted)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:10px 0 16px}
+    .search{flex:1;min-width:200px;display:flex;gap:8px}
+    .input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#0e1016;color:var(--text)}
+    .select{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#0e1016;color:var(--text)}
+
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    @media (max-width:1024px){.grid{grid-template-columns:repeat(3,1fr)} .hero{grid-template-columns:1fr}}
+    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:480px){.grid{grid-template-columns:1fr}}
+
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.55)}
+    .thumb{aspect-ratio:3/4;background:#0e1016;display:grid;place-items:center;position:relative}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .badge-top{position:absolute;top:10px;left:10px;background:rgba(11,12,16,.85);padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font-size:12px}
+    .content{padding:14px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .price{font-weight:800;font-size:18px}
+    .old{color:var(--muted);text-decoration:line-through;font-weight:600;margin-left:8px}
+    .stars{font-size:13px;color:#ffd166}
+    .swatches{display:flex;gap:8px;margin:10px 0}
+    .dot-s{width:18px;height:18px;border-radius:999px;border:2px solid rgba(255,255,255,.25);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+    .sizes{display:flex;gap:8px;flex-wrap:wrap}
+    .size{padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.14);font-size:12px;color:#d7dbe6}
+
+    .card .btn{width:100%;justify-content:center;margin-top:10px}
+
+    /* Promo band */
+    .promo{margin:24px 0 8px;background:linear-gradient(90deg, rgba(255,106,0,.1), rgba(255,255,255,.04));border:1px dashed rgba(255,106,0,.5);padding:14px;border-radius:14px;display:flex;gap:12px;align-items:center;justify-content:center}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width:900px){.testimonials{grid-template-columns:1fr}}
+    .quote{background:var(--card);border:1px solid rgba(255,255,255,.08);padding:18px;border-radius:16px}
+    .quote .who{display:flex;gap:10px;align-items:center;margin-top:8px;color:var(--muted)}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.08);margin-top:40px}
+    .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;padding:28px 0}
+    @media (max-width:900px){.foot{grid-template-columns:1fr}}
+    .tiny{color:var(--muted);font-size:13px}
+
+    /* Toast */
+    .toast{position:fixed;right:18px;bottom:18px;background:#111318;border:1px solid rgba(255,255,255,.14);color:var(--text);padding:14px 16px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:all .2s ease;z-index:60}
+    .toast.show{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo"><span>🕴️</span></div>
+        <span>SUITIFY</span>
+        <span class="chip">Tailored Confidence</span>
+      </div>
+      <nav style="display:flex;gap:16px;align-items:center">
+        <a href="#shop">Shop</a>
+        <a href="#custom">Custom</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
+        <button class="btn btn-ghost" id="cartBtn">🛒 <span id="cartCount">0</span></button>
+        <a class="btn btn-primary" href="#shop">Buy Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card">
+        <span class="kicker"><span class="dot"></span> New Season • 2025 Collection</span>
+        <h1>Premium Suits for Work, Weddings & Everything In‑Between</h1>
+        <p class="lead">Discover modern fits, luxurious fabrics, and flawless tailoring. Free alterations on all orders. Express shipping across India.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#shop">Shop Suits</a>
+          <a class="btn btn-ghost" href="#custom">Start Custom Tailoring</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-img">
+          <img alt="Sharp man in a charcoal suit" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=1200&auto=format&fit=crop"/>
+        </div>
+        <div class="badge">4.8★ Rated by 2,300+ customers</div>
+      </div>
+    </section>
+
+    <!-- PROMO -->
+    <div class="promo">⚡ Independence Week Offer: Flat ₹1,500 off on orders above ₹9,999 — Use code <b>SUIT1500</b></div>
+
+    <!-- SHOP -->
+    <section id="shop" class="section">
+      <div class="row">
+        <div>
+          <h2>Shop the Collection</h2>
+          <div class="muted">Select your size and add to cart. All buttons stay orange on hover, as requested.</div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="search">
+          <input class="input" id="search" type="search" placeholder="Search suits by color, fabric, occasion…"/>
+        </div>
+        <select class="select" id="sort">
+          <option value="pop">Sort: Popular</option>
+          <option value="low">Price: Low → High</option>
+          <option value="high">Price: High → Low</option>
+          <option value="new">Newest</option>
+        </select>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <!-- CUSTOM -->
+    <section id="custom" class="section">
+      <div class="hero-card">
+        <h2>Custom Tailoring</h2>
+        <p class="muted">Pick lapels, vents, lining, fabric & monograms. Ready in 7–10 days with free alterations within 30 days.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px">
+          <div style="background:var(--card);border:1px solid rgba(255,255,255,.08);padding:16px;border-radius:14px">
+            <b>Why Custom?</b>
+            <ul>
+              <li>Perfect fit for your body type</li>
+              <li>Choose fabric & details</li>
+              <li>Wedding & business packages</li>
+            </ul>
+          </div>
+          <form onsubmit="event.preventDefault(); showToast('Your custom request has been sent. Our stylist will contact you.'); this.reset();" style="background:var(--card);border:1px solid rgba(255,255,255,.08);padding:16px;border-radius:14px">
+            <label>Name<br><input class="input" required placeholder="Your full name"/></label><br><br>
+            <label>Phone / WhatsApp<br><input class="input" required placeholder="+91…"/></label><br><br>
+            <label>Occasion<br>
+              <select class="select">
+                <option>Business</option>
+                <option>Wedding</option>
+                <option>Casual</option>
+              </select>
+            </label><br><br>
+            <button class="btn btn-primary" type="submit">Request a Fitting</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" class="section">
+      <h2>Customer Reviews</h2>
+      <div class="testimonials">
+        <div class="quote">
+          “The midnight blue tux fit like a glove. Superb fabric and quick delivery.”
+          <div class="who">— Arjun P. • Bangalore • 5★</div>
+        </div>
+        <div class="quote">
+          “Great value for money. Got compliments the whole evening!”
+          <div class="who">— Nisha R. • Mumbai • 4.5★</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <h2>FAQ</h2>
+      <details class="quote"><summary>Do you offer alterations?</summary>Yes. Free alterations within 30 days of delivery.
+      </details>
+      <details class="quote"><summary>Shipping time?</summary>Ready-to-wear ships in 2–4 days. Custom in 7–10 days.
+      </details>
+      <details class="quote"><summary>What if the size doesn’t fit?</summary>We offer hassle-free exchanges and alterations.
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div>
+        <div class="brand" style="margin-bottom:8px">
+          <div class="logo"><span>🕴️</span></div>
+          <b>SUITIFY</b>
+        </div>
+        <p class="tiny">Premium suits crafted with precision. Pan‑India delivery. GST invoices available for corporate orders.</p>
+      </div>
+      <div>
+        <b>Company</b>
+        <ul class="tiny">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <b>Help</b>
+        <ul class="tiny">
+          <li><a href="#faq">Shipping & Returns</a></li>
+          <li><a href="#faq">Alterations</a></li>
+          <li><a href="#faq">Payment Options</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container tiny" style="padding:12px 0;border-top:1px solid rgba(255,255,255,.06)">© <span id="year"></span> SUITIFY. All rights reserved.</div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const products = [
+      {id:1, name:"Classic Charcoal Suit", price:8999, old:10999, tag:"Bestseller", img:"https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1200&auto=format&fit=crop", colors:["#2b2b2b","#1f2937","#111827"], sizes:["36","38","40","42","44"], rating:4.8, created:202401},
+      {id:2, name:"Navy Slim Fit", price:9499, old:0, tag:"New", img:"https://images.unsplash.com/photo-1520975922203-b6b77a840c73?q=80&w=1200&auto=format&fit=crop", colors:["#1e3a8a","#111827"], sizes:["36","38","40","42"], rating:4.6, created:202405},
+      {id:3, name:"Midnight Blue Tux", price:12499, old:13999, tag:"Tuxedo", img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1200&auto=format&fit=crop", colors:["#0f172a","#1e293b"], sizes:["38","40","42","44","46"], rating:4.9, created:202407},
+      {id:4, name:"Beige Summer Linen", price:9999, old:0, tag:"Linen", img:"https://images.unsplash.com/photo-1548883354-7622d99c6f24?q=80&w=1200&auto=format&fit=crop", colors:["#d6d3d1","#e7e5e4"], sizes:["38","40","42"], rating:4.4, created:202403},
+      {id:5, name:"Black Three‑Piece", price:13999, old:15999, tag:"Formal", img:"https://images.unsplash.com/photo-1520975922203-b6b77a840c73?q=80&w=1200&auto=format&fit=crop", colors:["#0b0b0b"], sizes:["38","40","42","44"], rating:4.7, created:202312},
+      {id:6, name:"Grey Windowpane", price:10999, old:0, tag:"Pattern", img:"https://images.unsplash.com/photo-1520975922203-b6b77a840c73?q=80&w=1200&auto=format&fit=crop", colors:["#374151","#6b7280"], sizes:["36","38","40","42"], rating:4.5, created:202402},
+      {id:7, name:"Maroon Festive Suit", price:11499, old:12999, tag:"Festive", img:"https://images.unsplash.com/photo-1536147116438-62679a5e01b6?q=80&w=1200&auto=format&fit=crop", colors:["#7f1d1d","#991b1b"], sizes:["38","40","42","44"], rating:4.6, created:202306},
+      {id:8, name:"Olive Casual Suit", price:9499, old:0, tag:"Casual", img:"https://images.unsplash.com/photo-1520975922203-b6b77a840c73?q=80&w=1200&auto=format&fit=crop", colors:["#3f4d3b","#47533f"], sizes:["38","40","42"], rating:4.2, created:202404},
+    ];
+
+    const grid = document.getElementById('grid');
+    const search = document.getElementById('search');
+    const sort = document.getElementById('sort');
+    const cartCount = document.getElementById('cartCount');
+    const toast = document.getElementById('toast');
+
+    const formatINR = v => '₹' + v.toLocaleString('en-IN');
+
+    function render(list){
+      grid.innerHTML = '';
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb">
+            <img alt="${p.name}" src="${p.img}"/>
+            <div class="badge-top">${p.tag}</div>
+          </div>
+          <div class="content">
+            <div class="row">
+              <b>${p.name}</b>
+              <div class="stars">${'★'.repeat(Math.round(p.rating))}</div>
+            </div>
+            <div class="row" style="margin-top:6px">
+              <div>
+                <span class="price">${formatINR(p.price)}</span>
+                ${p.old ? `<span class="old">${formatINR(p.old)}</span>`: ''}
+              </div>
+            </div>
+            <div class="swatches">
+              ${p.colors.map(c=>`<span class="dot-s" style="background:${c}"></span>`).join('')}
+            </div>
+            <div class="sizes">
+              ${p.sizes.map(s=>`<span class="size">${s}</span>`).join('')}
+            </div>
+            <button class="btn btn-primary" data-id="${p.id}">🛒 Add to Cart</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      // Attach handlers after render
+      document.querySelectorAll('[data-id]').forEach(btn=>{
+        btn.addEventListener('click',()=> addToCart(btn.getAttribute('data-id')));
+      });
+    }
+
+    let state = { cart: 0 };
+
+    function addToCart(){
+      state.cart += 1;
+      cartCount.textContent = state.cart;
+      showToast('Added to cart! Complete checkout at the top right.');
+    }
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 2000);
+    }
+
+    function apply(){
+      const q = search.value.trim().toLowerCase();
+      let list = products.filter(p => p.name.toLowerCase().includes(q));
+      switch(sort.value){
+        case 'low': list.sort((a,b)=>a.price-b.price); break;
+        case 'high': list.sort((a,b)=>b.price-a.price); break;
+        case 'new': list.sort((a,b)=>b.created-a.created); break;
+        default: list.sort((a,b)=>b.rating-a.rating);
+      }
+      render(list);
+    }
+
+    search.addEventListener('input', apply);
+    sort.addEventListener('change', apply);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // initial
+    apply();
+  </script>
+</body>
+</html>
